@@ -5,7 +5,7 @@ using namespace std;
 
 int setValue(const char[]);
 int* generateArray(int);
-int getResult(int* generatedArr, int arraySize, int x);
+int getPolynom(int* generatedArr, int arraySize, int x);
 int getDeritative(int* arr, int size, double x);
 
 void main()
@@ -15,21 +15,12 @@ void main()
 
 	int* generatedArray = generateArray(arraySize);
 
-	int result = getResult(generatedArray, arraySize, x);
-
-	/*int result = generatedArray[0];
-
-	for (int i = 0; i < arraySize; i++)
-	{
-		result *= x;
-		result += generatedArray[i];
-	}*/
+	int polynom = getPolynom(generatedArray, arraySize, x);
+	int deritative = getDeritative(generatedArray, arraySize, x);
 
 
-	cout << "result = "<< result << endl;
-
-	int r = getDeritative(generatedArray, arraySize, x);
-	cout << "deritative =" << r;
+	cout << "polynom = "<< polynom << endl;
+	cout << "deritative = " << deritative << endl;
 
 	system("pause");
 }
@@ -73,7 +64,7 @@ int* generateArray(int arrSize)
 	return array;
 }
 
-int getResult(int* generatedArr, int arraySize, int x)
+int getPolynom(int* generatedArr, int arraySize, int x)
 {
 	int result = generatedArr[0];
 
@@ -92,7 +83,7 @@ int getDeritative(int* arr, int size, double x)
 
 	for (int i = 1; i < size; i++)
 	{
-		res *= x * (size - i) * arr[i];
+		res = res * x * (size - i) * arr[i];
 	}
 
 	return res;
