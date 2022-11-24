@@ -79,7 +79,7 @@ int getPolynom(int* generatedArr, int arraySize, int x)
 
 int getDeritative(int* arr, int size, double x)
 {
-	int res = 1;
+	int res = arr[0];
 
 	for (int i = 1; i < size; i++)
 	{
