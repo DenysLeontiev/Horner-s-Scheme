@@ -3,34 +3,46 @@
 
 using namespace std;
 
-int setValue(const char[]);
-int* generateArray(int);
-int getPolynom(int* generatedArr, int arraySize, int x);
-int getDeritative(int* arr, int size, double x);
+double setValue(const char[]);
+double* generateArray(int);
+double getPolynom(double* generatedArr, int arraySize, double x);
+double getDeritative(double* arr, int size, double x);
+void outputArray(double* arr, int size);
 
-void main()
+
+int main()
 {
-	int x = setValue("x");
-	int arraySize = setValue("size of array");
+	double x = setValue("x");
+	int arraySize = 0;
+	while (arraySize < 1)
+	{
+		arraySize = (int)setValue("degree of polynom");
+	}
 
-	int* generatedArray = generateArray(arraySize);
+	double* generatedArray = generateArray(arraySize);
 
-	int polynom = getPolynom(generatedArray, arraySize, x);
-	int deritative = getDeritative(generatedArray, arraySize, x);
+	double polynom = getPolynom(generatedArray, arraySize, x);
+	double deritative = getDeritative(generatedArray, arraySize, x);
 
+	cout << endl;
 
-	cout << "polynom = "<< polynom << endl;
-	cout << "deritative = " << deritative << endl;
+	cout << "polynom = " << polynom << endl;
+	cout << "deritative = " << deritative << endl << endl;
+
+	outputArray(generatedArray, arraySize + 1);
+
+	delete[] generatedArray;
 
 	system("pause");
+	return 0;
 }
 
-int setValue(const char v[])
+double setValue(const char v[])
 {
-	srand(time(NULL));
+	/*srand(time(NULL));*/
 
 	int error;
-	int value;
+	double value;
 	do
 	{
 		error = 0;
@@ -49,26 +61,26 @@ int setValue(const char v[])
 	return value;
 }
 
-int* generateArray(int arrSize)
+double* generateArray(int arrSize)
 {
-	int* array = new int[arrSize];
+	double* array = new double[arrSize + 1];
 
-	for (int i = 0; i < arrSize; i++)
+	for (int i = 0; i <= arrSize; i++)
 	{
 		cout << "Enter " << "N." << (i + 1) << " element = ";
-		int value = 0;
-		cin >> value;
-		array[i] = value;
+		/*int value = 0;
+		cin >> value;*/
+		array[i] = setValue("element");
 	}
 
 	return array;
 }
 
-int getPolynom(int* generatedArr, int arraySize, int x)
+double getPolynom(double* generatedArr, int arraySize, double x)
 {
-	int result = generatedArr[0];
+	double result = generatedArr[0];
 
-	for (int i = 0; i < arraySize; i++)
+	for (int i = 1; i <= arraySize; i++)
 	{
 		result *= x;
 		result += generatedArr[i];
@@ -77,14 +89,25 @@ int getPolynom(int* generatedArr, int arraySize, int x)
 	return result;
 }
 
-int getDeritative(int* arr, int size, double x)
+double getDeritative(double* arr, int size, double x)
 {
-	int res = arr[0];
+	double res = arr[0] * size;
 
 	for (int i = 1; i < size; i++)
 	{
-		res = res * x * (size - i) * arr[i];
+		res = res * x + arr[i] * (size - i);
 	}
 
 	return res;
+}
+
+void outputArray(double* arr, int size)
+{
+
+	for (int i = 0; i < size; i++)
+	{
+		cout << "#" << (i + 1) << " = " << arr[i] << "  ";
+	}
+
+	cout << endl;
 }
